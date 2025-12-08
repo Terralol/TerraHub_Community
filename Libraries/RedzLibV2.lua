@@ -1424,29 +1424,39 @@ function MakeWindow(Configs)
     end
   end
   
-  function AddTextLabel(parent, Configs)
-    local LabelName = Configs[1] or Configs.Name or "Text Label!!"
-    
+    function AddTextLabel(parent, Configs)
+      local LabelName
+
+    if typeof(Configs) == "string" then
+        LabelName = Configs
+        Configs = {}
+    else
+        LabelName = Configs[1] or Configs.Name or "Text Label!!"
+    end
+
     local Frame = Create("Frame", parent, {
-      Size = UDim2.new(1, 0, 0, 25),
-      BackgroundColor3 = Configs_HUB.Cor_Options,
-      Name = "Frame"
-    })Corner(Frame)Stroke(Frame)
-    
+        Size = UDim2.new(1, 0, 0, 25),
+        BackgroundColor3 = Configs_HUB.Cor_Options,
+        Name = "Frame"
+    })
+    Corner(Frame)
+    Stroke(Frame)
+
     local TextButton = Create("TextButton", Frame, {
-      TextSize = 12,
-      TextColor3 = Configs_HUB.Cor_Text,
-      Text = LabelName,
-      Size = UDim2.new(1, 0, 0, 25),
-      Position = UDim2.new(0, 20, 0, 0),
-      BackgroundTransparency = 1,
-      TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+        TextSize = 12,
+        TextColor3 = Configs_HUB.Cor_Text,
+        Text = LabelName,
+        Size = UDim2.new(1, 0, 0, 25),
+        Position = UDim2.new(0, 20, 0, 0),
+        BackgroundTransparency = 1,
+        TextXAlignment = "Left",
+        Font = Configs_HUB.Text_Font
     })
     TextSetColor(TextButton)
+
     return TextButton
   end
-  
+
   function SetLabel(label, NewValue)
     label.Text = NewValue
   end
