@@ -60,6 +60,17 @@ local function CreateTween(instance, prop, value, time, tweenWait)
   end
 end
 
+local function CreateTweenV2(instance, prop, value, time, tweenW)
+  local tween = TweenService:Create(instance,
+  TweenInfo.new(time, Enum.EasingStyle.Linear),
+  {[prop] = value})
+  tween:Play()
+  if tweenW then
+    tween.Completed:Wait()
+  end
+end
+
+
 local function TextSetColor(instance)
   instance.MouseEnter:Connect(function()
     CreateTween(instance, "TextColor3", Configs_HUB.Cor_Stroke, 0.4, true)
@@ -680,52 +691,42 @@ function MakeWindow(Configs)
     local Callback = Configs.Callback or function() end
     
     local TextButton = Create("TextButton", parent, {
-        Size = UDim2.new(1, 0, 0, 25),
-        BackgroundColor3 = Configs_HUB.Cor_Options,
-        Name = "Frame",
-        Text = "",
-        AutoButtonColor = false
-    }) Corner(TextButton) Stroke(TextButton)
+      Size = UDim2.new(1, 0, 0, 25),
+      BackgroundColor3 = Configs_HUB.Cor_Options,
+      Name = "Frame",
+      Text = "",
+      AutoButtonColor = false
+    })Corner(TextButton)Stroke(TextButton)
     
     local TextLabel = Create("TextLabel", TextButton, {
-        TextSize = 12,
-        TextColor3 = Configs_HUB.Cor_Text,
-        Text = ButtonName,
-        Size = UDim2.new(1, 0, 1, 0),
-        Position = UDim2.new(0, 30, 0, 0),
-        BackgroundTransparency = 1,
-        TextXAlignment = "Left",
-        Font = Configs_HUB.Text_Font
+      TextSize = 12,
+      TextColor3 = Configs_HUB.Cor_Text,
+      Text = ButtonName,
+      Size = UDim2.new(1, 0, 1, 0),
+      Position = UDim2.new(0, 30, 0, 0),
+      BackgroundTransparency = 1,
+      TextXAlignment = "Left",
+      Font = Configs_HUB.Text_Font
     })
     
     local ImageLabel = Create("ImageLabel", TextButton, {
-        Image = "rbxassetid://10723375250",
-        Size = UDim2.new(0, 20, 0, 20),
-        Position = UDim2.new(0, 5, 0, 2.5),
-        BackgroundTransparency = 1,
-        ImageColor3 = Configs_HUB.Cor_Text
+      Image = "rbxassetid://10723375250",
+      Size = UDim2.new(0, 20, 0, 20),
+      Position = UDim2.new(0, 5, 0, 2.5),
+      BackgroundTransparency = 1,
+      ImageColor3 = Configs_HUB.Cor_Stroke
     })
-
-    local WaitClick 
+    
     TextButton.MouseButton1Click:Connect(function()
-        Callback("Click!!")
-
-        if not WaitClick then
-            WaitClick = true
-
-            CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.2, true)
-            CreateTween(TextLabel, "TextColor3", Configs_HUB.Cor_Stroke, 0.2, true)
-
-            task.delay(0.2, function()
-                CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Text, 0.2, true)
-                CreateTween(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.2, true)
-                WaitClick = false
-            end)
-        end
+      Callback("Click!!")
+      CreateTween(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.2, true)
+      CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.2, false)
+      CreateTweenV2(TextLabel, "TextColor3", Color3.fromRGB(30, 140, 200), 0.2, true)
+      CreateTweenV2(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.2, false)
     end)
     
-      TextSetColor(TextLabel)
-   end
+    TextSetColor(TextLabel)
+  end
   
   function AddToggle(parent, Configs)
     local ToggleName = Configs.Name or "Toggle!!"
@@ -1436,7 +1437,7 @@ function MakeWindow(Configs)
     end
   end
   
-    function AddTextLabel(parent, Configs)
+  function AddTextLabel(parent, Configs)
       local LabelName
 
     if typeof(Configs) == "string" then
@@ -1466,7 +1467,7 @@ function MakeWindow(Configs)
     })
     TextSetColor(TextButton)
 
-    return TextButton
+     return TextButton
   end
 
   function SetLabel(label, NewValue)
