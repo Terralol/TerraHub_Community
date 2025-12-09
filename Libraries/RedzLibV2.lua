@@ -743,6 +743,7 @@ function MakeWindow(Configs)
               end)
           end
       end)
+      TextSetColor(TextLabel)
   end
   
   function AddToggle(parent, Configs)
