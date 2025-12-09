@@ -60,14 +60,19 @@ local function CreateTween(instance, prop, value, time, tweenWait)
   end
 end
 
-local function CreateTweenV2(instance, prop, value, time, tweenW)
-  local tween = TweenService:Create(instance,
-  TweenInfo.new(time, Enum.EasingStyle.Linear),
-  {[prop] = value})
+local function CreateTweenV2(instance, prop, value, time, EasingStyle, EasingDirection, RepeatCount, Reverses, DelayTime)
+  local tweenInfo = TweenInfo.new(
+    time or 0.5,
+    EasingStyle or Enum.EasingStyle.Quad,
+    EasingDirection or Enum.EasingDirection.Out,
+    RepeatCount or 0,
+    Reverses or false,
+    DelayTime or 0
+  )
+  
+  local tween = TweenService:Create(instance, tweenInfo, {[prop] = value})
   tween:Play()
-  if tweenW then
-    tween.Completed:Wait()
-  end
+  return tween
 end
 
 
@@ -717,16 +722,29 @@ function MakeWindow(Configs)
       ImageColor3 = Configs_HUB.Cor_Stroke
     })
     
-    TextButton.MouseButton1Click:Connect(function()
-      Callback("Click!!")
-      CreateTween(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.2, true)
-      CreateTweenV2(TextLabel, "TextColor3", Color3.fromRGB(30, 140, 200), 0.2, true)
-      CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.2, false)
-      CreateTweenV2(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.2, false)
-    end)
+    local WaitClick
     
-    TextSetColor(TextLabel)
-  end
+    TextButton.MouseButton1Click:Connect(function()
+    Callback("Click!!")
+    if not WaitClick then
+        WaitClick = true
+        
+        PlayClickSound(TextButton)
+    
+        CreateTweenV2(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.4)
+        if TextLabel then
+            CreateTweenV2(TextLabel, "TextColor3", Color3.fromRGB(30, 140, 200), 0.4)
+        end
+
+        task.delay(0.3, function()
+            CreateTweenV2(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.4)
+            if TextLabel then
+                CreateTweenV2(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.4)
+            end
+            WaitClick = false
+          end)
+      end
+  end)
   
   function AddToggle(parent, Configs)
     local ToggleName = Configs.Name or "Toggle!!"
