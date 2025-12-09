@@ -728,8 +728,6 @@ function MakeWindow(Configs)
     Callback("Click!!")
     if not WaitClick then
         WaitClick = true
-        
-        PlayClickSound(TextButton)
     
         CreateTweenV2(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.4)
         if TextLabel then
