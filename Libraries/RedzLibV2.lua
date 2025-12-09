@@ -742,9 +742,10 @@ function MakeWindow(Configs)
                 CreateTweenV2(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.4)
             end
             WaitClick = false
-          end)
-      end
-  end)
+              end)
+          end
+      end)
+  end
   
   function AddToggle(parent, Configs)
     local ToggleName = Configs.Name or "Toggle!!"
