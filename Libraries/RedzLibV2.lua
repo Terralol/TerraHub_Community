@@ -730,7 +730,7 @@ function MakeWindow(Configs)
     
     TextButton.MouseButton1Click:Connect(function()
       Callback("Click!!")
-      CreateTween(ImageLabel, "ImageColor3", Color3.Configs_HUB.Cor_Stroke, 0.2, true)
+      CreateTween(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.2, true)
       CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Text, 0.2, false)
     end)
     
