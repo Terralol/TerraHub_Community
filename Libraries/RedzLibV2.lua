@@ -5,12 +5,18 @@ local Configs_HUB = {
   Cor_Text = Color3.fromRGB(240, 240, 240),
   Cor_DarkText = Color3.fromRGB(140, 140, 140),
   Corner_Radius = UDim.new(0, 4),
-  Text_Font = Enum.Font.FredokaOne
+  Text_Font = Enum.Font.BuilderSansExtraBold
 }
 
-local CoreGui = game:GetService("CoreGui")
-local TweenService = game:GetService("TweenService")
+local MarketplaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local PlayerMouse = Player:GetMouse()
 
 local function Create(instance, parent, props)
   local new = Instance.new(instance, parent)
