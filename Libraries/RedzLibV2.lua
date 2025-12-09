@@ -728,27 +728,12 @@ function MakeWindow(Configs)
       ImageColor3 = Configs_HUB.Cor_Stroke
     })
     
-    local WaitClick
-    
     TextButton.MouseButton1Click:Connect(function()
-    Callback("Click!!")
-    if not WaitClick then
-        WaitClick = true
+      Callback("Click!!")
+      CreateTween(ImageLabel, "ImageColor3", Color3.Configs_HUB.Cor_Stroke, 0.2, true)
+      CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Text, 0.2, false)
+    end)
     
-        CreateTweenV2(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.4)
-        if TextLabel then
-            CreateTweenV2(TextLabel, "TextColor3", Color3.fromRGB(30, 140, 200), 0.4)
-        end
-
-        task.delay(0.3, function()
-            CreateTweenV2(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.4)
-            if TextLabel then
-                CreateTweenV2(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.4)
-            end
-            WaitClick = false
-              end)
-          end
-      end)
       TextSetColor(TextLabel)
   end
   
