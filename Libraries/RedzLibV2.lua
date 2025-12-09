@@ -62,7 +62,7 @@ end
 
 local function TextSetColor(instance)
   instance.MouseEnter:Connect(function()
-    CreateTween(instance, "TextColor3", Color3.fromRGB(30, 140, 200), 0.4, true)
+    CreateTween(instance, "TextColor3", Configs_HUB.Cor_Stroke, 0.4, true)
   end)
   instance.MouseLeave:Connect(function()
     CreateTween(instance, "TextColor3", Configs_HUB.Cor_Text, 0.4, false)
@@ -692,7 +692,7 @@ function MakeWindow(Configs)
       TextColor3 = Configs_HUB.Cor_Text,
       Text = ButtonName,
       Size = UDim2.new(1, 0, 1, 0),
-      Position = UDim2.new(0, 35, 0, 0),
+      Position = UDim2.new(0, 30, 0, 0),
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
       Font = Configs_HUB.Text_Font
@@ -710,6 +710,8 @@ function MakeWindow(Configs)
       Callback("Click!!")
       CreateTween(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.2, true)
       CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.2, false)
+      CreateTween(TextLabel, "TextColor3", Color3.fromRGB(30, 140, 200), 0.2, true)
+      CreateTween(TextLabel, "TextColor3", Configs_HUB.Cor_Stroke, 0.2, false)
     end)
     
     TextSetColor(TextLabel)
