@@ -81,18 +81,8 @@ local function CreateTweenV2(instance, prop, value, time, EasingStyle, EasingDir
   return tween
 end
 
-
-local function TextSetColor(instance)
-  instance.MouseEnter:Connect(function()
-    CreateTween(instance, "TextColor3", Configs_HUB.Cor_Stroke, 0.4, true)
-  end)
-  instance.MouseLeave:Connect(function()
-    CreateTween(instance, "TextColor3", Configs_HUB.Cor_Text, 0.4, false)
-  end)
-end
-
 local ScreenGui = Create("ScreenGui", CoreGui, {
-  Name = "REDz HUB library"
+  Name = "REDz HUB library ( Modified )"
 })
 
 ScreenFind = CoreGui:FindFirstChild(ScreenGui.Name)
@@ -728,13 +718,28 @@ function MakeWindow(Configs)
       ImageColor3 = Configs_HUB.Cor_Stroke
     })
     
-    TextButton.MouseButton1Click:Connect(function()
-      Callback("Click!!")
-      CreateTween(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.2, true)
-      CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.2, false)
-    end)
+    local WaitClick
     
-      TextSetColor(TextLabel)
+    TextButton.MouseButton1Click:Connect(function()
+    Callback("Click!!")
+    
+    if not WaitClick then
+        WaitClick = true
+    
+        CreateTweenV2(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.4)
+        if TextLabel then
+            CreateTweenV2(TextLabel, "TextColor3", Color3.fromRGB(30, 140, 200), 0.4)
+        end
+
+        task.delay(0.3, function()
+            CreateTweenV2(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.4)
+            if TextLabel then
+                CreateTweenV2(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.4)
+            end
+            WaitClick = false
+               end)
+           end
+      end)
   end
   
   function AddToggle(parent, Configs)
@@ -919,7 +924,7 @@ function MakeWindow(Configs)
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
       Font = Configs_HUB.Text_Font
-    })TextSetColor(TextLabel)
+    })
     
     local TextLabelNumber = Create("TextLabel", Frame, {
       Font = Configs_HUB.Text_Font,
@@ -1052,7 +1057,7 @@ function MakeWindow(Configs)
         Callback(OnOff)
       end
     end)
-    TextSetColor(TextLabel)
+    
   end
   
   function AddTextBox(parent, Configs)
@@ -1078,7 +1083,7 @@ function MakeWindow(Configs)
       TextXAlignment = "Left",
       Font = Configs_HUB.Text_Font
     })
-    TextSetColor(TextLabel)
+    
     
     local TextBox = Create("TextBox", Frame, {
       Size = UDim2.new(0, 120, 0, 20),
@@ -1285,7 +1290,7 @@ function MakeWindow(Configs)
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
       Font = Configs_HUB.Text_Font
-    })TextSetColor(TextLabel)
+    })
     
     local Line = Create("Frame", TextButton, {
       Size = UDim2.new(1, 0, 0, 1),
@@ -1474,7 +1479,7 @@ function MakeWindow(Configs)
         TextXAlignment = "Left",
         Font = Configs_HUB.Text_Font
     })
-    TextSetColor(TextButton)
+    
 
      return TextButton
   end
@@ -1507,7 +1512,7 @@ function MakeWindow(Configs)
       Size = UDim2.new(0, 75, 0, 75),
       Position = UDim2.new(0, 10, 0, 25)
     })
-    TextSetColor(TextButton)
+    
     return ImageLabel
   end
   
@@ -1540,7 +1545,7 @@ function MakeWindow(Configs)
       TextYAlignment = "Top",
       Font = Configs_HUB.Text_Font,
       TextWrapped = true
-    })TextSetColor(TextButton)
+    })
     
     local TextLabel = Create("TextLabel", Frame, {
       Name = "Frame",
