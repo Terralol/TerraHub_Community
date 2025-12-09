@@ -680,42 +680,52 @@ function MakeWindow(Configs)
     local Callback = Configs.Callback or function() end
     
     local TextButton = Create("TextButton", parent, {
-      Size = UDim2.new(1, 0, 0, 25),
-      BackgroundColor3 = Configs_HUB.Cor_Options,
-      Name = "Frame",
-      Text = "",
-      AutoButtonColor = false
-    })Corner(TextButton)Stroke(TextButton)
+        Size = UDim2.new(1, 0, 0, 25),
+        BackgroundColor3 = Configs_HUB.Cor_Options,
+        Name = "Frame",
+        Text = "",
+        AutoButtonColor = false
+    }) Corner(TextButton) Stroke(TextButton)
     
     local TextLabel = Create("TextLabel", TextButton, {
-      TextSize = 12,
-      TextColor3 = Configs_HUB.Cor_Text,
-      Text = ButtonName,
-      Size = UDim2.new(1, 0, 1, 0),
-      Position = UDim2.new(0, 30, 0, 0),
-      BackgroundTransparency = 1,
-      TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+        TextSize = 12,
+        TextColor3 = Configs_HUB.Cor_Text,
+        Text = ButtonName,
+        Size = UDim2.new(1, 0, 1, 0),
+        Position = UDim2.new(0, 30, 0, 0),
+        BackgroundTransparency = 1,
+        TextXAlignment = "Left",
+        Font = Configs_HUB.Text_Font
     })
     
     local ImageLabel = Create("ImageLabel", TextButton, {
-      Image = "rbxassetid://10723375250",
-      Size = UDim2.new(0, 20, 0, 20),
-      Position = UDim2.new(0, 5, 0, 2.5),
-      BackgroundTransparency = 1,
-      ImageColor3 = Configs_HUB.Cor_Stroke
+        Image = "rbxassetid://10723375250",
+        Size = UDim2.new(0, 20, 0, 20),
+        Position = UDim2.new(0, 5, 0, 2.5),
+        BackgroundTransparency = 1,
+        ImageColor3 = Configs_HUB.Cor_Text
     })
-    
+
+    local WaitClick 
     TextButton.MouseButton1Click:Connect(function()
-      Callback("Click!!")
-      CreateTween(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.2, true)
-      CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.2, false)
-      CreateTween(TextLabel, "TextColor3", Color3.fromRGB(30, 140, 200), 0.2, false)
-      CreateTween(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.2, false)
+        Callback("Click!!")
+
+        if not WaitClick then
+            WaitClick = true
+
+            CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.2, true)
+            CreateTween(TextLabel, "TextColor3", Configs_HUB.Cor_Stroke, 0.2, true)
+
+            task.delay(0.2, function()
+                CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Text, 0.2, true)
+                CreateTween(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.2, true)
+                WaitClick = false
+            end)
+        end
     end)
     
-    TextSetColor(TextLabel)
-  end
+      TextSetColor(TextLabel)
+   end
   
   function AddToggle(parent, Configs)
     local ToggleName = Configs.Name or "Toggle!!"
