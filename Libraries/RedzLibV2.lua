@@ -1,22 +1,16 @@
 local Configs_HUB = {
   Cor_Hub = Color3.fromRGB(15, 15, 15),
   Cor_Options = Color3.fromRGB(15, 15, 15),
-  Cor_Stroke = Color3.fromRGB(254, 229, 1),
+  Cor_Stroke = Color3.fromRGB(60, 60, 60),
   Cor_Text = Color3.fromRGB(240, 240, 240),
   Cor_DarkText = Color3.fromRGB(140, 140, 140),
   Corner_Radius = UDim.new(0, 4),
-  Text_Font = Enum.Font.BuilderSansExtraBold
+  Text_Font = Enum.Font.FredokaOne
 }
 
-local MarketplaceService = game:GetService("MarketplaceService")
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local HttpService = game:GetService("HttpService")
-local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
-local Players = game:GetService("Players")
-local Player = Players.LocalPlayer
-local PlayerMouse = Player:GetMouse()
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
 
 local function Create(instance, parent, props)
   local new = Instance.new(instance, parent)
@@ -66,23 +60,17 @@ local function CreateTween(instance, prop, value, time, tweenWait)
   end
 end
 
-local function CreateTweenV2(instance, prop, value, time, EasingStyle, EasingDirection, RepeatCount, Reverses, DelayTime)
-  local tweenInfo = TweenInfo.new(
-    time or 0.5,
-    EasingStyle or Enum.EasingStyle.Quad,
-    EasingDirection or Enum.EasingDirection.Out,
-    RepeatCount or 0,
-    Reverses or false,
-    DelayTime or 0
-  )
-  
-  local tween = TweenService:Create(instance, tweenInfo, {[prop] = value})
-  tween:Play()
-  return tween
+local function TextSetColor(instance)
+  instance.MouseEnter:Connect(function()
+    CreateTween(instance, "TextColor3", Color3.fromRGB(30, 140, 200), 0.4, true)
+  end)
+  instance.MouseLeave:Connect(function()
+    CreateTween(instance, "TextColor3", Configs_HUB.Cor_Text, 0.4, false)
+  end)
 end
 
 local ScreenGui = Create("ScreenGui", CoreGui, {
-  Name = "REDz HUB library ( Modified )"
+  Name = "REDz HUB library"
 })
 
 ScreenFind = CoreGui:FindFirstChild(ScreenGui.Name)
@@ -439,7 +427,7 @@ function MakeWindow(Configs)
       BackgroundColor3 = Configs_HUB.Cor_Hub,
       Text = "Close Script",
       Font = Configs_HUB.Text_Font,
-      TextColor3 = Color3.fromRGB(240, 0, 0),
+      TextColor3 = Color3.fromRGB(245, 245, 245),
       TextSize = 20
     })Corner(Confirm)Stroke(Confirm)
     
@@ -450,7 +438,7 @@ function MakeWindow(Configs)
       BackgroundColor3 = Configs_HUB.Cor_Hub,
       Text = "Cancel",
       Font = Configs_HUB.Text_Font,
-      TextColor3 = Color3.fromRGB(0, 240, 0),
+      TextColor3 = Color3.fromRGB(245, 245, 245),
       TextSize = 20
     })Corner(Cancel)Stroke(Cancel)
     
@@ -704,42 +692,27 @@ function MakeWindow(Configs)
       TextColor3 = Configs_HUB.Cor_Text,
       Text = ButtonName,
       Size = UDim2.new(1, 0, 1, 0),
-      Position = UDim2.new(0, 30, 0, 0),
+      Position = UDim2.new(0, 35, 0, 0),
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
       Font = Configs_HUB.Text_Font
     })
     
     local ImageLabel = Create("ImageLabel", TextButton, {
-      Image = "rbxassetid://10723375250",
+      Image = "rbxassetid://15155219405",
       Size = UDim2.new(0, 20, 0, 20),
       Position = UDim2.new(0, 5, 0, 2.5),
       BackgroundTransparency = 1,
       ImageColor3 = Configs_HUB.Cor_Stroke
     })
     
-    local WaitClick
-    
     TextButton.MouseButton1Click:Connect(function()
-    Callback("Click!!")
+      Callback("Click!!")
+      CreateTween(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.2, true)
+      CreateTween(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.2, false)
+    end)
     
-    if not WaitClick then
-        WaitClick = true
-    
-        CreateTweenV2(ImageLabel, "ImageColor3", Color3.fromRGB(30, 140, 200), 0.4)
-        if TextLabel then
-            CreateTweenV2(TextLabel, "TextColor3", Color3.fromRGB(30, 140, 200), 0.4)
-        end
-
-        task.delay(0.3, function()
-            CreateTweenV2(ImageLabel, "ImageColor3", Configs_HUB.Cor_Stroke, 0.4)
-            if TextLabel then
-                CreateTweenV2(TextLabel, "TextColor3", Configs_HUB.Cor_Text, 0.4)
-            end
-            WaitClick = false
-               end)
-           end
-      end)
+    TextSetColor(TextLabel)
   end
   
   function AddToggle(parent, Configs)
@@ -924,7 +897,7 @@ function MakeWindow(Configs)
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
       Font = Configs_HUB.Text_Font
-    })
+    })TextSetColor(TextLabel)
     
     local TextLabelNumber = Create("TextLabel", Frame, {
       Font = Configs_HUB.Text_Font,
@@ -1057,7 +1030,7 @@ function MakeWindow(Configs)
         Callback(OnOff)
       end
     end)
-    
+    TextSetColor(TextLabel)
   end
   
   function AddTextBox(parent, Configs)
@@ -1083,7 +1056,7 @@ function MakeWindow(Configs)
       TextXAlignment = "Left",
       Font = Configs_HUB.Text_Font
     })
-    
+    TextSetColor(TextLabel)
     
     local TextBox = Create("TextBox", Frame, {
       Size = UDim2.new(0, 120, 0, 20),
@@ -1290,7 +1263,7 @@ function MakeWindow(Configs)
       BackgroundTransparency = 1,
       TextXAlignment = "Left",
       Font = Configs_HUB.Text_Font
-    })
+    })TextSetColor(TextLabel)
     
     local Line = Create("Frame", TextButton, {
       Size = UDim2.new(1, 0, 0, 1),
@@ -1452,38 +1425,28 @@ function MakeWindow(Configs)
   end
   
   function AddTextLabel(parent, Configs)
-      local LabelName
-
-    if typeof(Configs) == "string" then
-        LabelName = Configs
-        Configs = {}
-    else
-        LabelName = Configs[1] or Configs.Name or "Text Label!!"
-    end
-
-    local Frame = Create("Frame", parent, {
-        Size = UDim2.new(1, 0, 0, 25),
-        BackgroundColor3 = Configs_HUB.Cor_Options,
-        Name = "Frame"
-    })
-    Corner(Frame)
-    Stroke(Frame)
-
-    local TextButton = Create("TextButton", Frame, {
-        TextSize = 12,
-        TextColor3 = Configs_HUB.Cor_Text,
-        Text = LabelName,
-        Size = UDim2.new(1, 0, 0, 25),
-        Position = UDim2.new(0, 20, 0, 0),
-        BackgroundTransparency = 1,
-        TextXAlignment = "Left",
-        Font = Configs_HUB.Text_Font
-    })
+    local LabelName = Configs[1] or Configs.Name or "Text Label!!"
     
-
-     return TextButton
+    local Frame = Create("Frame", parent, {
+      Size = UDim2.new(1, 0, 0, 25),
+      BackgroundColor3 = Configs_HUB.Cor_Options,
+      Name = "Frame"
+    })Corner(Frame)Stroke(Frame)
+    
+    local TextButton = Create("TextButton", Frame, {
+      TextSize = 12,
+      TextColor3 = Configs_HUB.Cor_Text,
+      Text = LabelName,
+      Size = UDim2.new(1, 0, 0, 25),
+      Position = UDim2.new(0, 20, 0, 0),
+      BackgroundTransparency = 1,
+      TextXAlignment = "Left",
+      Font = Configs_HUB.Text_Font
+    })
+    TextSetColor(TextButton)
+    return TextButton
   end
-
+  
   function SetLabel(label, NewValue)
     label.Text = NewValue
   end
@@ -1512,7 +1475,7 @@ function MakeWindow(Configs)
       Size = UDim2.new(0, 75, 0, 75),
       Position = UDim2.new(0, 10, 0, 25)
     })
-    
+    TextSetColor(TextButton)
     return ImageLabel
   end
   
@@ -1545,7 +1508,7 @@ function MakeWindow(Configs)
       TextYAlignment = "Top",
       Font = Configs_HUB.Text_Font,
       TextWrapped = true
-    })
+    })TextSetColor(TextButton)
     
     local TextLabel = Create("TextLabel", Frame, {
       Name = "Frame",
