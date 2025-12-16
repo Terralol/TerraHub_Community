@@ -14,4 +14,4 @@
     Discord: discord.gg/FJzjGt6vH
 ]]
 setclipboard("https://t.me/Terra_Hub")
-game.Players.LocalPlayer:Kick("The script is currently down. Please join our community to stay updated and be ready for the next release. [Link Copied]")
+game.Players.LocalPlayer:Kick("Script down. Check Telegram & Discord for updates.\n[Link Copied]")
