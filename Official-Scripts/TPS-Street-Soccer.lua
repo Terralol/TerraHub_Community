@@ -12,3 +12,4 @@
     Last Updated: 2025 / 
     Telegaram: https://t.me/Terra_Hub
     Discord: discord.gg/FJzjGt6vH
+]]
