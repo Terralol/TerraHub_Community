@@ -1,4 +1,4 @@
-# TerraHub_Community
+# TerraHub Community
 **Welcome to TerraHub Community**
 
 **A specialized community focused on Roblox exploitation and script development. We also Communityn Lua programming on a large scale.**
