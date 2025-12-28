@@ -14,4 +14,4 @@
 
 
 [![Telegram](https://img.shields.io/badge/Telegram-Join-blue?logo=telegram&style=for-the-badge)](https://t.me/Terra_Hub)
-[![Discord](https://img.shields.io/badge/Discord-Join-7289DA?logo=discord&style=for-the-badge)](https://discord.gg/aSzW3TDUX5)
+[![Discord](https://img.shields.io/badge/Discord-Join-7289DA?logo=discord&style=for-the-badge)](https://discord.gg/FJzjGt6vH)
